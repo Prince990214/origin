@@ -193,15 +193,24 @@ LList = [4,
          ]
 
 SNum = 0
+
+
 def CodeReplace(RT):
     global SNum
     with open(r'b.xdm', 'r', encoding='UTF-8') as file:
         # 使用 read() 函数读取文件内容并将它们存储在一个新变量中
         data = file.read()
-
-        # 使用 replace() 函数搜索和替换文本
+        # 把字符串和变量拼接成要被替换的字符串
         Signal = '"ComSignal_' + str(SNum)
         SNum = SNum + 1
+        # 输出替换信息
+        FindFlag = data.find(Signal)
+        if FindFlag == -1:
+            print("文件中未检索到", Signal)
+        else:
+            print(Signal, "被替换为", VList[RT])
+
+        # 使用 replace() 函数搜索和替换文本
         data = data.replace(Signal, VList[RT], 1)
         # LenNum = LList[RT] // 8 + 1
         # print(LenNum)
@@ -216,9 +225,6 @@ def CodeReplace(RT):
         # 在文本文件中写入替换的数据
         file.write(data)
 
-    # 打印文本已替换
-    print(Signal, "被替换为", VList[RT])
-
 
 def ReplaceTimes(RT):
     i = 0
@@ -230,7 +236,7 @@ def ReplaceTimes(RT):
 if __name__ == '__main__':
     # Num = len(VList)
     # print(Num)
-    # ReplaceTimes(160)
-    t = 2
-    template = "hello%syourwe%sbsiteis%s" % ("大", "http://b",t)
-    print(template)
+    ReplaceTimes(160)
+    # t = 2
+    # template = "hello%syourwe%sbsiteis%s" % ("大", "http://b",t) %s用做替换符号，括号内的三个字符或者变量分别对应第1 2 3个s
+    # print(template)

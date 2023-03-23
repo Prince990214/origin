@@ -19,23 +19,24 @@ def write_TestDescriptionRx():
     listnum = 0
     column = 5
     # read
-    xlsx = xlrd2.open_workbook('if.xlsx')
-    table = xlsx.sheet_by_index(1)  # 通过索引查找：xlsx.sheet_by_index(3)
+    xlsx = xlrd2.open_workbook('test.xlsx')
+    table = xlsx.sheet_by_index(0)  # 通过索引查找：xlsx.sheet_by_index(3)
     nrows = table.nrows
-    name_list = [str(table.cell_value(i, 13)) for i in range(1, nrows)]  # 获取第4列所有值（列表生成式）
+    name_list = [str(table.cell_value(i, 1)) for i in range(0, nrows)]  # i代表行数 从0开始并且累加
     while '' in name_list:
         name_list.remove('')
     print(name_list)
-    new_name_list = pandas.Series(name_list) + ' Rx message test'
-    print(new_name_list)
-    # write
-    test = openpyxl.load_workbook('test1.xlsx')
-    sheet = test.worksheets[0]
-    while listnum < len(name_list):
-        sheet.cell(row, column).value = new_name_list[listnum]
-        test.save('test1.xlsx')
-        listnum += 1
-        row += 1
+    #以下代码暂时屏蔽为了测试读功能
+    # new_name_list = pandas.Series(name_list) + ' Rx message test'
+    # print(new_name_list)
+    # # write
+    # test = openpyxl.load_workbook('test1.xlsx')
+    # sheet = test.worksheets[0]
+    # while listnum < len(name_list):
+    #     sheet.cell(row, column).value = new_name_list[listnum]
+    #     test.save('test1.xlsx')
+    #     listnum += 1
+    #     row += 1
 
 
 def write_TestDescriptionTx():
@@ -82,5 +83,5 @@ def write_Target():
 
 
 if __name__ == '__main__':
-    write_Target()
+    write_TestDescriptionRx()
     # write_TestDescriptionRx()
